@@ -25,12 +25,9 @@ class SenderActivity : AppCompatActivity() {
         }
         findViewById<Button>(R.id.buttonOpenEmail).setOnClickListener {
             try {
-                val intent = Intent(Intent.ACTION_SEND)
-                intent.type = "text/plain"
-                intent.putExtra(Intent.EXTRA_SUBJECT, "Action Title")
-                intent.putExtra(Intent.EXTRA_TEXT, "Action Text")
-                intent.putExtra(Intent.EXTRA_EMAIL, arrayOf("android@otus.ru"))
-
+                val intent = Intent(Intent.ACTION_SENDTO).apply {
+                    data = Uri.parse("mailto:android@otus.ru?subject=Action Title&body=Action Text")
+                }
                 startActivity(intent)
             } catch (exception: ActivityNotFoundException) {
                 Toast.makeText(this, "Устройство не поддерживает отправку письма", Toast.LENGTH_SHORT)
